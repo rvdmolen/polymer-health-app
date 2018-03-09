@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="polymer-health-app">
+    <template>
+        <style>
+            :host {
+                --app-primary-color: #4285f4;
+                --app-secondary-color: black;
+
+                display: block;
+            }
+        </style>
+
+        <h1>It works</h1>
+    </template>
+
+    <script>
+        Polymer.setPassiveTouchGestures(true);
+
+        class PolymerHealthApp extends Polymer.Element {
+            static get is() { return 'polymer-health-app'; }
+
+        }
+
+        window.customElements.define(PolymerHealthApp.is, PolymerHealthApp);
+    </script>
+</dom-module>

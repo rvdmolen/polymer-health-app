@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../backup/shared-styles.html">
+<link rel="import" href="nav-item.html">
+
+<dom-module id="my-navbar">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+        height: 100px;
+        background-color: lightcyan;
+      }
+
+      div {
+          display: flex;
+      }
+    </style>
+
+    <div>
+
+      <my-navitem name="Item 1" selected="[[arrayItem(selected.*, 0, 'value')]]" data-args="0" on-click="_click"></my-navitem>
+      <my-navitem name="Item 2" selected="[[arrayItem(selected.*, 1, 'value')]]" data-args="1" on-click="_click"></my-navitem>
+      <my-navitem name="Item 3" selected="[[arrayItem(selected.*, 2, 'value')]]" data-args="2" on-click="_click"></my-navitem>
+    </div>
+  </template>
+
+  <script>
+    class MyNavBar extends Polymer.Element {
+       static get is() { return 'my-navbar'; }
+
+       static get properties() {
+          return {
+            selected: {
+                type: Array,
+                value: [{ value: true}, {value: false}, {value: false}]
+            }
+          }
+      }
+
+      _click(e) {
+            var args = e.currentTarget.name;
+            console.log(args);
+         // this.selected[0] = !this.selected[0];
+      }
+
+      arrayItem(change, idx, path) {
+        return this.get(path, change.base[idx]);
+      }
+
+
+    }
+
+    window.customElements.define(MyNavBar.is, MyNavBar);
+  </script>
+</dom-module>
