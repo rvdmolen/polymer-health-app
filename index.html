@@ -24,16 +24,29 @@
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
     <!-- Load your application shell -->
-    <link rel="import" href="src/app.html">
+    <link rel="import" href="./src/app.html">
 
-    <!-- Add any global styles for body, document, etc. -->
-    <style>
-      body {
+    <!-- Stylesheets -->
+    <style type="text/css">
+      *, *:before, *:after {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+      }
+      html, body {
+        height: 100%;
+        width: 100%;
         margin: 0;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        line-height: 1.5;
-        min-height: 100vh;
-        background-color: #eeeeee;
+        padding: 0;
+        background: #eff4f9;
+        -webkit-font-smoothing: antialiased;
+        font: 300 16px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        color: #545e6f;
+        display: flex;
+      }
+      a {
+        text-decoration: none;
+        outline: 0;
       }
     </style>
   </head>

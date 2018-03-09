@@ -1,0 +1,106 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="app-nav">
+    <template>
+        <style>
+            :host {
+                margin: -1px 0 0;
+                display: block;
+            }
+
+            .app-nav {
+                background: #3E88DE;
+                text-align: center;
+                box-shadow: 0 3px 5px 0 rgba(50,50,50,.4);
+            }
+            .app-nav a {
+                color: rgba(255, 255, 255, 0.6);
+                padding: 15px 0;
+                display: inline-block;
+                min-width: 150px;
+                font-weight: 500;
+                font-size: 16px;
+                text-transform: uppercase;
+                border-bottom: 3px solid transparent;
+            }
+            .app-nav a:hover, .app-nav a.active {
+                color: #fff;
+                border-bottom-color: #fff;
+                cursor: pointer;
+            }
+
+            .wrapper {
+                max-width: 800px;
+                width: 96%;
+                margin: 0 auto;
+            }
+
+            .selected {
+                border-bottom-color: #fff !important;
+            }
+
+        </style>
+        <div class="app-nav">
+            <div class="wrapper">
+                <a on-click="select" class$="[[mealsClass]]" name="meals">Meals</a>
+                <a on-click="select" class$="[[scheduleClass]]" name="schedule">Schedule</a>
+                <a on-click="select" class$="[[workoutsClass]]" name="workouts">Workouts</a>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        class AppNav extends Polymer.Element {
+            static get is() { return 'app-nav'; }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String
+                    },
+                    mealsClass: {
+                        type: String,
+                        value: 'selected'
+                    },
+                    workoutsClass: {
+                        type: String
+                    },
+                    scheduleClass: {
+                        type: String
+                    }
+                }
+            }
+
+            constructor() {
+                super();
+            }
+
+            select(e) {
+                switch (e.currentTarget.name) {
+                    case 'meals':
+                        this.scheduleClass = '';
+                        this.workoutsClass = '';
+                        this.mealsClass = 'selected';
+                        break;
+                    case 'schedule':
+                        this.workoutsClass = '';
+                        this.mealsClass = '';
+                        this.scheduleClass = 'selected';
+                        break;
+                    case 'workouts':
+                        this.workoutsClass = '';
+                        this.scheduleClass = '';
+                        this.workoutsClass = 'selected';
+                        break;
+                    default:
+                        this.workoutsClass = '';
+                        this.scheduleClass = '';
+                        this.mealsClass = '';
+                }
+            }
+
+        }
+
+        window.customElements.define(AppNav.is, AppNav);
+    </script>
+</dom-module>

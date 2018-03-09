@@ -1,24 +1,51 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./components/app/app-header/app-header.html">;
+<link rel="import" href="./components/app/app-nav/app-nav.html">;
+<link rel="import" href="./components/health/meals/meals-list.html">;
+
+<!-- <link rel="import" href="./components/app-header/app-header.html"; -->
 
 <dom-module id="polymer-health-app">
     <template>
         <style>
             :host {
-                --app-primary-color: #4285f4;
-                --app-secondary-color: black;
-
-                display: block;
-            }
+                width: 100%;
+              }
+              .wrapper {
+                max-width: 800px;
+                width: 96%;
+                margin: 0 auto;
+              }
         </style>
 
-        <h1>It works</h1>
+        <div>
+            <app-header></app-header>
+            <app-nav></app-nav>
+            <div class="wrapper">
+                <meals-list></meals-list>
+            </div>
+
+        </div>
     </template>
 
     <script>
-        Polymer.setPassiveTouchGestures(true);
+        //Polymer.setPassiveTouchGestures(true);
 
         class PolymerHealthApp extends Polymer.Element {
             static get is() { return 'polymer-health-app'; }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String
+                    }
+                }
+            }
+
+            constructor() {
+                super();
+                this.name = 'test123';
+            }
 
         }
 
