@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
+
+<script>
+	const initialState = {
+        selectedmenuitem: {
+            'value': 'meals'
+        }
+	};
+
+	const reducer = (state, action) => {
+		if (!state) {
+			return initialState;
+		}
+
+        let selectedmenuitem = state.selectedmenuitem;
+
+		switch (action.type) {
+            case 'SELECT_MENU':
+                selectedmenuitem = action.selectedmenuitem;
+            break;
+		}
+		return Object.assign({}, state, {selectedmenuitem: selectedmenuitem});
+	};
+
+	// Create a Redux store
+	const store = Redux.createStore(reducer);
+	const ReduxMixin = PolymerRedux(store);
+</script>
+
+
+<link rel="import" href="../../../state/redux-mixin.html">
+
+class WorkoutsList extends ReduxMixin(Polymer.Element) {
+
+static get properties() {
+	return {
+		name: {
+			type: String
+		},
+		activemenu: {
+			type: Array,
+			statePath: 'selectedmenuitem'
+		}
+}
+
+static get actions() {
+	return {
+		select: (menuitem) => {
+			return {
+				type: 'SELECT_MENU',
+				selectedmenuitem: {value: menuitem}
+			};
+		},
+	};
+}

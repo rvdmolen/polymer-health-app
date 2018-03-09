@@ -1,0 +1,32 @@
+<script src="../../node_modules/redux/dist/redux.min.js"></script>
+
+<script>
+    (() => {
+        const initialState = {
+            selectedmenuitem: {
+                value: 'meals'
+            }
+        };
+
+        const navMenuReducer = (state, action) => {
+            if (!state) {
+                return initialState;
+            }
+
+            let selectedmenuitem = state.selectedmenuitem;
+
+            switch (action.type) {
+                case 'SELECT_MENU':
+                    selectedmenuitem = action.selectedmenuitem;
+                    break;
+            }
+            return Object.assign({}, state, { selectedmenuitem: selectedmenuitem });
+        }
+
+        App = window.App || {};
+
+        App.rootReducer = Redux.combineReducers({
+            app_menu: navMenuReducer
+        });
+    })();
+</script>

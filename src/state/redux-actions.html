@@ -1,0 +1,17 @@
+<script>
+    (() => {
+
+        const activateMenu = (menuitem) => {
+            return {
+                type: 'SELECT_MENU',
+                selectedmenuitem: { value: menuitem }
+            };
+        }
+
+        App = window.App || {};
+
+        App.actions = {
+            activateMenu
+        };
+    })();
+</script>

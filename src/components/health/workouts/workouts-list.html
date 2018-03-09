@@ -1,96 +1,32 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
-
+<link rel="import" href="workouts-list.style.html">
 <link rel="import" href="../../../state/redux-mixin.html">
 
 <dom-module id="workouts-list">
     <template>
-        <style>
-            :host {
-                display: block;
-                margin: 50px 0;
-            }
+        <style include="workouts-list-styles"></style>
 
-            .meals {
-                position: relative;
-                background: #fff;
-                box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
-                border: 1px solid #c1cedb;
-                border-radius: 3px;
-                overflow: hidden;
-            }
-            .meals h1 {
-                flex-grow: 1;
-                display: flex;
-                align-items: center;
-                margin: 0;
-                padding: 0;
-                font-size: 24px;
-            }
-            .meals h1 img {
-                margin: 0 10px 0 0;
-            }
-            .meals__title {
-                display: flex;
-                align-items: center;
-                padding: 30px;
-                background: #f6fafd;
-                border-bottom: 1px solid #c1cedb;
-            }
-
-            .btn__add {
-                display: flex;
-                align-items: center;
-                color: #fff;
-                background: #97c747;
-                border-radius: 50px;
-                padding: 6px 20px 6px 15px;
-                text-transform: uppercase;
-                font-weight: 600;
-                font-size: 13px;
-                cursor: pointer;
-            }
-            .btn__add img {
-                width: 20px;
-                margin: 0 6px 0 0;
-            }
-
-            .message {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                padding: 30px;
-                font-size: 22px;
-                font-weight: 500;
-            }
-            .message img {
-                margin: 0 10px 0 0;
-            }
-
-        </style>
         <div class="meals">
-                <div class="meals__title">
-                    <h1>
-                        <img src="/images/food.svg">
-                        Your workouts
-                    </h1>
-                    <a class="btn__add">
-                    <img src="/images/add-white.svg">
-                    New Workout
-                    </a>
-                </div>
-                <div>
-                    <div class="message">
-                        <!-- <img src="/images/face.svg"> -->
-                        Waiting for store....
-                        <span>[[activemenu.value]]</span>
-                    </div>
+            <div class="meals__title">
+                <h1>
+                    <img src="/images/food.svg"> Your workouts
+                </h1>
+                <a class="btn__add">
+                    <img src="/images/add-white.svg"> New Workout
+                </a>
+            </div>
+            <div>
+                <div class="message">
+                    <!-- <img src="/images/face.svg"> -->
+                    Waiting for store....
+                    <span>[[activemenu.value]]</span>
                 </div>
             </div>
+        </div>
     </template>
 
     <script>
-        class WorkoutsList extends ReduxMixin(Polymer.Element) {
+        class WorkoutsList extends App.ReduxMixin(Polymer.Element) {
             static get is() { return 'workouts-list'; }
 
             static get properties() {
@@ -99,9 +35,9 @@
                         type: String
                     },
                     activemenu: {
-						type: Array,
-						statePath: 'selectedmenuitem'
-					}
+                        type: Array,
+                        statePath: 'app_menu.selectedmenuitem'
+                    }
                 }
             }
 

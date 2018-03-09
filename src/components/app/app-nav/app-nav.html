@@ -51,7 +51,7 @@
     </template>
 
     <script>
-        class AppNav extends ReduxMixin(Polymer.Element) {
+        class AppNav extends App.ReduxMixin(Polymer.Element) {
             static get is() { return 'app-nav'; }
 
             static get properties() {
@@ -98,19 +98,10 @@
                         this.scheduleClass = '';
                         this.mealsClass = '';
                 }
-                this.dispatch('select', e.currentTarget.name);
+                //this.dispatch('select', e.currentTarget.name);
+                this.dispatch(App.actions.activateMenu(e.currentTarget.name));
             }
 
-            static get actions() {
-				return {
-					select: (menuitem) => {
-						return {
-							type: 'SELECT_MENU',
-							selectedmenuitem: {value: menuitem}
-						};
-					},
-				};
-			}
 
         }
 

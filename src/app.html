@@ -35,7 +35,7 @@
     <script>
         Polymer.setPassiveTouchGestures(true);
 
-        class PolymerHealthApp extends ReduxMixin(Polymer.Element) {
+        class PolymerHealthApp extends App.ReduxMixin(Polymer.Element) {
             static get is() { return 'polymer-health-app'; }
 
             static get properties() {
@@ -45,7 +45,7 @@
                     },
                     activemenu: {
 						type: Array,
-						statePath: 'selectedmenuitem',
+						statePath: 'app_menu.selectedmenuitem',
                         observer: '_menuItemChanged'
 					}
                 }
