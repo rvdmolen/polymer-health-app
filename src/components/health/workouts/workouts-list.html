@@ -2,7 +2,7 @@
 
 <link rel="import" href="../../../state/redux-mixin.html">
 
-<dom-module id="meals-list">
+<dom-module id="workouts-list">
     <template>
         <style>
             :host {
@@ -72,11 +72,11 @@
                 <div class="meals__title">
                     <h1>
                         <img src="/images/food.svg">
-                        Your meals
+                        Your workouts
                     </h1>
                     <a class="btn__add">
                     <img src="/images/add-white.svg">
-                    New meal
+                    New Workout
                     </a>
                 </div>
                 <div>
@@ -90,8 +90,8 @@
     </template>
 
     <script>
-        class MealsList extends ReduxMixin(Polymer.Element) {
-            static get is() { return 'meals-list'; }
+        class WorkoutsList extends ReduxMixin(Polymer.Element) {
+            static get is() { return 'workouts-list'; }
 
             static get properties() {
                 return {
@@ -111,6 +111,6 @@
 
         }
 
-        window.customElements.define(MealsList.is, MealsList);
+        window.customElements.define(WorkoutsList.is, WorkoutsList);
     </script>
 </dom-module>

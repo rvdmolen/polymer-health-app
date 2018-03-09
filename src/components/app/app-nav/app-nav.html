@@ -1,4 +1,5 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+ <link rel="import" href="../../../state/redux-mixin.html">
 
 <dom-module id="app-nav">
     <template>
@@ -50,7 +51,7 @@
     </template>
 
     <script>
-        class AppNav extends Polymer.Element {
+        class AppNav extends ReduxMixin(Polymer.Element) {
             static get is() { return 'app-nav'; }
 
             static get properties() {
@@ -97,7 +98,19 @@
                         this.scheduleClass = '';
                         this.mealsClass = '';
                 }
+                this.dispatch('select', e.currentTarget.name);
             }
+
+            static get actions() {
+				return {
+					select: (menuitem) => {
+						return {
+							type: 'SELECT_MENU',
+							selectedmenuitem: {value: menuitem}
+						};
+					},
+				};
+			}
 
         }
 

@@ -12,5 +12,8 @@
     "test": "polymer test",
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "start": "polymer serve -o"
+  },
+  "dependencies": {
+    "redux": "^3.7.2"
   }
 }
