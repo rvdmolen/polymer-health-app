@@ -1,0 +1,43 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="app-nav-styles">
+    <template>
+        <style>
+            :host {
+                margin: -1px 0 0;
+                display: block;
+            }
+
+            .app-nav {
+                background: #3E88DE;
+                text-align: center;
+                box-shadow: 0 3px 5px 0 rgba(50,50,50,.4);
+            }
+            .app-nav a {
+                color: rgba(255, 255, 255, 0.6);
+                padding: 15px 0;
+                display: inline-block;
+                min-width: 150px;
+                font-weight: 500;
+                font-size: 16px;
+                text-transform: uppercase;
+                border-bottom: 3px solid transparent;
+            }
+            .app-nav a:hover, .app-nav a.active {
+                color: #fff;
+                border-bottom-color: #fff;
+                cursor: pointer;
+            }
+
+            .wrapper {
+                max-width: 800px;
+                width: 96%;
+                margin: 0 auto;
+            }
+
+            .selected {
+                border-bottom-color: #fff !important;
+            }
+        </style>
+    </template>
+</dom-module>

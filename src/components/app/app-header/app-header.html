@@ -1,54 +1,9 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="app-header.style.html">
 
 <dom-module id="app-header">
   <template>
-    <style>
-      .app-header {
-        background: white;
-        border-bottom: 1px solid #c1cedb;
-        padding: 15px 0;
-        text-align: center;
-      }
-
-      img {
-        display: inline-block;
-        height: 32px;
-      }
-
-      .app-header__user-info {
-        position: absolute;
-        top: 18px;
-        right: 10px;
-        cursor: pointer;
-      }
-
-      .logout {
-        background: url(/images/logout.svg) no-repeat;
-        background-size: contain;
-        width: 24px;
-        height: 24px;
-        display: block;
-        opacity: 0.4;
-      }
-
-      .logout:hover {
-        opacity: 0.9;
-      }
-
-      .wrapper {
-        display: flex;
-        justify-content: center;
-      }
-
-      .app-header__title {
-        margin-top: 2px;
-        font-size: 22px;
-        margin-left: 5px;
-        font-family: Helvetica, Arial, sans-serif;
-        font-weight: 500;
-      }
-    </style>
-
+    <style include="app-header-styles"></style>
     <div class="app-header">
         <div class="wrapper">
             <img src="/images/p-logo.png">

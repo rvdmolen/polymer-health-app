@@ -1,17 +1,22 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
 <link rel="import" href="./components/app/app-header/app-header.html">;
 <link rel="import" href="./components/app/app-nav/app-nav.html">;
+<link rel="import" href="./components/app/app-not-found/app-not-found.html">;
 <link rel="import" href="./components/health/meals/meals-list.html">;
 <link rel="import" href="./components/health/workouts/workouts-list.html">;
+<link rel="import" href="./components/health/schedule/schedule-list.html">;
+
 <link rel="import" href="./state/redux-mixin.html">
 
-
-<!-- <link rel="import" href="./components/app-header/app-header.html"; -->
 
 <dom-module id="polymer-health-app">
     <template>
         <style>
-            :host {
+              :host {
                 width: 100%;
               }
               .wrapper {
@@ -21,12 +26,26 @@
               }
         </style>
 
+        <app-location route="{{route}}"></app-location>
+
+        <app-route
+                route="{{route}}"
+                pattern="[[rootPath]]:page"
+                data="{{routeData}}"
+                tail="{{subroute}}">
+        </app-route>
+
         <div>
             <app-header></app-header>
             <app-nav></app-nav>
+
             <div class="wrapper">
-                <meals-list></meals-list>
-                <workouts-list></workouts-list>
+                <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
+                    <meals-list name="meals" route="{{subroute}}"></meals-list>
+                    <workouts-list name="workouts" route="{{subroute}}"></workouts-list>
+                    <schedule-list name="schedule" route="{{subroute}}"></schedule-list>
+                    <app-not-found name="404"></app-not-found>
+                </iron-pages>
             </div>
 
         </div>
@@ -47,7 +66,14 @@
 						type: Array,
 						statePath: 'app_menu.selectedmenuitem',
                         observer: '_menuItemChanged'
-					}
+					},
+                    page: {
+                        type: String,
+                        reflectToAttribute: true,
+                    },
+                    routeData: Object,
+                    subroute: Object,
+                    rootPath: String,
                 }
             }
 
@@ -56,8 +82,19 @@
                 this.name = 'test123';
             }
 
+            static get observers() {
+                return [
+                    '_routePageChanged(routeData.page)',
+                ];
+            }
+
+            _routePageChanged(page) {
+                window.history.pushState({}, null, '/' + page);
+                window.dispatchEvent(new CustomEvent('location-changed'));
+            }
+
             _menuItemChanged(args) {
-                console.log('the menu item has changed', args);
+                this.set('route.path', '/' + args.value + '/');
             }
 
         }

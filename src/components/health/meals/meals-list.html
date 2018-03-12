@@ -6,7 +6,7 @@
     <template>
         <style include="meals-list-styles"></style>
 
-        <div class="meals">
+        <div class$="[[anim_toggle]]">
             <div class="meals__title">
                 <h1>
                     <img src="/images/food.svg"> Your meals
@@ -36,13 +36,25 @@
                     },
                     activemenu: {
                         type: Array,
-                        statePath: 'app_menu.selectedmenuitem'
+                        statePath: 'app_menu.selectedmenuitem',
+                        observer: '_menuChanged'
+                    },
+                    anim_toggle: {
+                        type: String,
+                        value: 'meals'
                     }
                 }
             }
 
             constructor() {
                 super();
+            }
+
+            _menuChanged() {
+                this.anim_toggle = 'meals';
+                setTimeout((() => {
+                    this.anim_toggle = 'meals meals_anim';
+                }),100);
             }
 
         }

@@ -8,16 +8,22 @@
                 margin: 50px 0;
             }
 
-            .meals {
+            .workouts {
                 position: relative;
                 background: #fff;
                 box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
                 border: 1px solid #c1cedb;
                 border-radius: 3px;
                 overflow: hidden;
+                opacity: 0;
             }
 
-            .meals h1 {
+            .workouts_anim {
+                opacity: 1;
+                transition: opacity 0.2s ease-in-out;
+            }
+
+            .workouts h1 {
                 flex-grow: 1;
                 display: flex;
                 align-items: center;
@@ -26,11 +32,11 @@
                 font-size: 24px;
             }
 
-            .meals h1 img {
+            .workouts h1 img {
                 margin: 0 10px 0 0;
             }
 
-            .meals__title {
+            .workouts__title {
                 display: flex;
                 align-items: center;
                 padding: 30px;
@@ -70,6 +76,6 @@
                 margin: 0 10px 0 0;
             }
         </style>
-        </style>
+
     </template>
 </dom-module>

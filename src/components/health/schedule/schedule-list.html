@@ -1,23 +1,19 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="workouts-list.style.html">
+<link rel="import" href="schedule-list.style.html">
 <link rel="import" href="../../../state/redux-mixin.html">
 
-<dom-module id="workouts-list">
+<dom-module id="schedule-list">
     <template>
-        <style include="workouts-list-styles"></style>
+        <style include="schedule-list-styles"></style>
 
         <div class$="[[anim_toggle]]">
-            <div class="workouts__title">
+            <div class="schedule__title">
                 <h1>
-                    <img src="/images/food.svg"> Your workouts
+                    <img src="/images/food.svg"> Schedule
                 </h1>
-                <a class="btn__add">
-                    <img src="/images/add-white.svg"> New Workout
-                </a>
             </div>
             <div>
                 <div class="message">
-                    <!-- <img src="/images/face.svg"> -->
                     Waiting for store....
                     <span>[[activemenu.value]]</span>
                 </div>
@@ -26,8 +22,8 @@
     </template>
 
     <script>
-        class WorkoutsList extends App.ReduxMixin(Polymer.Element) {
-            static get is() { return 'workouts-list'; }
+        class ScheduleList extends App.ReduxMixin(Polymer.Element) {
+            static get is() { return 'schedule-list'; }
 
             static get properties() {
                 return {
@@ -38,6 +34,10 @@
                         type: Array,
                         statePath: 'app_menu.selectedmenuitem',
                         observer: '_menuChanged'
+                    },
+                    anim_toggle: {
+                        type: String,
+                        value: 'schedule'
                     }
                 }
             }
@@ -47,14 +47,14 @@
             }
 
             _menuChanged() {
-                this.anim_toggle = 'workouts';
+                this.anim_toggle = 'schedule';
                 setTimeout((() => {
-                    this.anim_toggle = 'workouts workouts_anim';
+                    this.anim_toggle = 'schedule schedule_anim';
                 }),100);
             }
 
         }
 
-        window.customElements.define(WorkoutsList.is, WorkoutsList);
+        window.customElements.define(ScheduleList.is, ScheduleList);
     </script>
 </dom-module>
