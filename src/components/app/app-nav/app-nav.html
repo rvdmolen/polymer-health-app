@@ -1,4 +1,7 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../../../../bower_components/brum-global-variable/brum-global-variable.html">
+
 <link rel="import" href="../../../state/redux-mixin.html">
 <link rel="import" href="app-nav.style.html">
 
@@ -6,11 +9,16 @@
 <dom-module id="app-nav">
     <template>
         <style include="app-nav-styles"></style>
+
+        <brum-global-variable key="userData" value="{{storedUser}}"></brum-global-variable>
+
         <div class="app-nav">
             <div class="wrapper">
-                <a on-click="select" class$="[[mealsClass]]" name="meals">Meals</a>
-                <a on-click="select" class$="[[scheduleClass]]" name="schedule">Schedule</a>
-                <a on-click="select" class$="[[workoutsClass]]" name="workouts">Workouts</a>
+                <template is="dom-if" if="[[storedUser.loggedin]]">
+                    <a on-click="select" class$="[[mealsClass]]" name="meals">Meals</a>
+                    <a on-click="select" class$="[[scheduleClass]]" name="schedule">Schedule</a>
+                    <a on-click="select" class$="[[workoutsClass]]" name="workouts">Workouts</a>
+                </template>
             </div>
         </div>
     </template>
@@ -33,7 +41,8 @@
                     },
                     scheduleClass: {
                         type: String
-                    }
+                    },
+                    storedUser: Object
                 }
             }
 

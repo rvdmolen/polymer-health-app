@@ -1,9 +1,14 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../../bower_components/brum-global-variable/brum-global-variable.html">
+
 <link rel="import" href="app-header.style.html">
 
 <dom-module id="app-header">
   <template>
     <style include="app-header-styles"></style>
+
+    <brum-global-variable key="userData" value="{{storedUser}}"></brum-global-variable>
+
     <div class="app-header">
         <div class="wrapper">
             <img src="/images/p-logo.png">
@@ -33,36 +38,25 @@
             style: {
                 type: String,
                 value: 'main deselect'
-            }
+            },
+            storedUser: Object
           }
       }
+
 
       constructor() {
           super();
       }
 
       logoutUser() {
-            console.log('to be implemented');
+          this.storedUser = {
+              loggedin: false
+          };
+          window.history.pushState({}, null, '/login');
+          window.dispatchEvent(new CustomEvent('location-changed'));
       }
 
-    //   _valueChanged(val) {
-    //       console.log('selected has changed', val);
 
-    //       this.style = (val) ? 'main selected' : 'main deselect';
-    //   }
-
-
-
-    //   _click() {
-    //       this.selected = !this.selected;
-    //       console.log(this._getSelected());
-    //   }
-
-    //   _getSelected() {
-    //       debugger
-    //       console.log('get selected', this.selected);
-    //       this.style = (this.selected) ? 'main selected' : 'main deselect';
-    //   }
     }
 
     window.customElements.define(AppHeader.is, AppHeader);

@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
 
 <link rel="import" href="./components/app/app-header/app-header.html">;
 <link rel="import" href="./components/app/app-nav/app-nav.html">;
@@ -9,6 +10,7 @@
 <link rel="import" href="./components/health/meals/meals-list.html">;
 <link rel="import" href="./components/health/workouts/workouts-list.html">;
 <link rel="import" href="./components/health/schedule/schedule-list.html">;
+<link rel="import" href="./components/auth/auth-login/auth-login.html">;
 
 <link rel="import" href="./state/redux-mixin.html">
 
@@ -35,15 +37,25 @@
                 tail="{{subroute}}">
         </app-route>
 
+        <iron-localstorage
+                name="user-storage"
+                value="{{storedUser}}"
+                on-iron-localstorage-load="handleLocalstorageLoadEvent"
+                on-iron-localstorage-load-empty="initLocalstorageLoadEvent">
+        </iron-localstorage>
+
         <div>
             <app-header></app-header>
             <app-nav></app-nav>
 
             <div class="wrapper">
                 <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
+                    <login-form name="login" route="{{subroute}}"></login-form>
+
                     <meals-list name="meals" route="{{subroute}}"></meals-list>
                     <workouts-list name="workouts" route="{{subroute}}"></workouts-list>
                     <schedule-list name="schedule" route="{{subroute}}"></schedule-list>
+
                     <app-not-found name="404"></app-not-found>
                 </iron-pages>
             </div>
@@ -74,6 +86,7 @@
                     routeData: Object,
                     subroute: Object,
                     rootPath: String,
+                    storedUser: Object
                 }
             }
 
@@ -82,13 +95,29 @@
                 this.name = 'test123';
             }
 
+
             static get observers() {
                 return [
                     '_routePageChanged(routeData.page)',
                 ];
             }
 
+            initLocalstorageLoadEvent() {
+                this.storedUser = {
+                    loggedin: false
+                };
+                this.set('route.path', '/login/');
+            }
+
+            handleLocalstorageLoadEvent() {
+                if (!this.storedUser.loggedin) {
+                    this.set('route.path', '/login/');
+                }
+            }
+
+
             _routePageChanged(page) {
+
                 window.history.pushState({}, null, '/' + page);
                 window.dispatchEvent(new CustomEvent('location-changed'));
             }

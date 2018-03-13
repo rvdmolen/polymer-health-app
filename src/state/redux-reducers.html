@@ -5,6 +5,9 @@
         const initialState = {
             selectedmenuitem: {
                 value: 'meals'
+            },
+            user: {
+                loggedin: false
             }
         };
 
@@ -22,6 +25,8 @@
             }
             return Object.assign({}, state, { selectedmenuitem: selectedmenuitem });
         }
+
+
 
         App = window.App || {};
 
