@@ -115,9 +115,7 @@
                 }
             }
 
-
             _routePageChanged(page) {
-
                 window.history.pushState({}, null, '/' + page);
                 window.dispatchEvent(new CustomEvent('location-changed'));
             }

@@ -1,9 +1,14 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../../../../bower_components/brum-global-variable/brum-global-variable.html">
+<link rel="import" href="../../../../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
+
+<link rel="import" href="../../../validators/password-validator.html">
 
 <link rel="import" href="auth-login.style.html">
 <link rel="import" href="../../../state/redux-mixin.html">
+
 
 <dom-module id="login-form">
     <template>
@@ -12,9 +17,47 @@
         <iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
         <brum-global-variable key="userData" value="{{storedUser}}"></brum-global-variable>
 
-        <div>
-            Loginform
-            <button on-click="_login">Log in please!!!</button>
+        <password-validator
+                validator-name="password-validator"
+                id="password-validator"
+                error-message={{passwordErrorMessage}} >
+        </password-validator>
+
+        <div class="auth-form">
+            <form>
+                <h1>Login</h1>
+
+                <div class="auth-form__action">
+                    <paper-input
+                            id="input_username"
+                            value={{username}}
+                            label="Enter Username">
+                        <iron-icon icon="mail" slot="prefix"></iron-icon>
+                        <div slot="suffix">@email.com</div>
+                    </paper-input>
+                </div>
+
+                <div class="auth-form__action">
+
+                    <paper-input auto-validate
+                                 id="input_password"
+                                 type="password"
+                                 validator="password-validator"
+                                 label="Enter password"
+                                 value={{password}}
+                                 invalid="{{invalid}}"
+                                 error-message=[[passwordErrorMessage]]>
+                    </paper-input>
+
+                </div>
+
+                <div class="auth-form__action">
+                    <button  type="button" on-click="_login"  disabled$="[[!formvalid]]">
+                        Login
+                    </button>
+                </div>
+
+            </form>
         </div>
     </template>
 
@@ -24,7 +67,24 @@
 
             static get properties() {
                 return {
-                    storedUser: Object
+                    storedUser: Object,
+                    data: {
+                        type: Object,
+                        value: {},
+                        observer: '_formValueChanged'
+                    },
+                    formvalid: {
+                        type: Boolean,
+                        value: false
+                    },
+                    username: {
+                        type: String,
+                        observer: '_formValueChanged'
+                    },
+                    password: {
+                        type: String,
+                        observer: '_formValueChanged'
+                    }
                 }
             }
 
@@ -37,8 +97,14 @@
                     loggedin: true
                 };
 
-                window.history.pushState({}, null, '/meals');
-                window.dispatchEvent(new CustomEvent('location-changed'));
+               window.history.pushState({}, null, '/meals');
+               window.dispatchEvent(new CustomEvent('location-changed'));
+            }
+
+            _formValueChanged(value) {
+                console.log(this.invalid);
+                //console.log(this.$.input_password.invalid);
+                this.formvalid = !this.$.input_password.invalid;
             }
         }
 

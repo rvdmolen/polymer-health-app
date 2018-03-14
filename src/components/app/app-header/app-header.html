@@ -17,7 +17,9 @@
             </div>
         </div>
         <div class="app-header__user-info">
-            <span on-click="logoutUser" class="logout"></span>
+            <template is="dom-if" if="[[storedUser.loggedin]]">
+                <span on-click="logoutUser" class="logout"></span>
+            </template>
         </div>
     </div>
   </template>
