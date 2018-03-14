@@ -1,6 +1,9 @@
 {
   "name": "polymer-health-app",
   "license": "MIT",
+  "keywords": [
+    "Javascript"
+  ],
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",

@@ -5,6 +5,7 @@
 <link rel="import" href="../../../../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
 
 <link rel="import" href="../../../validators/password-validator.html">
+<link rel="import" href="../../../validators/username-validator.html">
 
 <link rel="import" href="auth-login.style.html">
 <link rel="import" href="../../../state/redux-mixin.html">
@@ -18,19 +19,29 @@
         <brum-global-variable key="userData" value="{{storedUser}}"></brum-global-variable>
 
         <password-validator
+                is-valid="{{ispasswordvalid}}"
                 validator-name="password-validator"
                 id="password-validator"
                 error-message={{passwordErrorMessage}} >
         </password-validator>
+
+        <username-validator
+                is-valid="{{isusernamevalid}}"
+                validator-name="username-validator"
+                id="username-validator"
+                error-message={{usernameErrorMessage}} >
+        </username-validator>
 
         <div class="auth-form">
             <form>
                 <h1>Login</h1>
 
                 <div class="auth-form__action">
-                    <paper-input
+                    <paper-input auto-validate
                             id="input_username"
+                            validator="username-validator"
                             value={{username}}
+                            error-message=[[usernameErrorMessage]]
                             label="Enter Username">
                         <iron-icon icon="mail" slot="prefix"></iron-icon>
                         <div slot="suffix">@email.com</div>
@@ -45,7 +56,7 @@
                                  validator="password-validator"
                                  label="Enter password"
                                  value={{password}}
-                                 invalid="{{invalid}}"
+                                 valid={{ispasswordvalid}}
                                  error-message=[[passwordErrorMessage]]>
                     </paper-input>
 
@@ -55,6 +66,7 @@
                     <button  type="button" on-click="_login"  disabled$="[[!formvalid]]">
                         Login
                     </button>
+
                 </div>
 
             </form>
@@ -70,26 +82,34 @@
                     storedUser: Object,
                     data: {
                         type: Object,
-                        value: {},
-                        observer: '_formValueChanged'
+                        value: {}
                     },
                     formvalid: {
                         type: Boolean,
                         value: false
                     },
                     username: {
-                        type: String,
-                        observer: '_formValueChanged'
+                        type: String
                     },
                     password: {
-                        type: String,
-                        observer: '_formValueChanged'
+                        type: String
+                    },
+                    ispasswordvalid: {
+                        observer: '_validationChanged'
+                    },
+                    isusernamevalid: {
+                        observer: '_validationChanged'
                     }
                 }
             }
 
             constructor() {
                 super();
+            }
+
+            attached() {
+                super.attached();
+                console.log('attached');
             }
 
             _login() {
@@ -101,11 +121,11 @@
                window.dispatchEvent(new CustomEvent('location-changed'));
             }
 
-            _formValueChanged(value) {
-                console.log(this.invalid);
-                //console.log(this.$.input_password.invalid);
-                this.formvalid = !this.$.input_password.invalid;
+            _validationChanged(value) {
+                this.formvalid = (this.ispasswordvalid || false) && (this.isusernamevalid || false);
             }
+
+
         }
 
         window.customElements.define(AuthLoginForm.is, AuthLoginForm);

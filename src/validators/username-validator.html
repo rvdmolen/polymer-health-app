@@ -1,11 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
 
-<dom-module id="password-validator">
+<dom-module id="username-validator">
     <script>
-        class PasswordValidator extends Polymer.mixinBehaviors([Polymer.IronValidatorBehavior], Polymer.Element) {
+        class UsernameValidator extends Polymer.mixinBehaviors([Polymer.IronValidatorBehavior], Polymer.Element) {
 
-            static get is() { return 'password-validator'; }
+            static get is() { return 'username-validator'; }
 
             static get properties() {
                 return {
@@ -25,30 +25,22 @@
             }
 
             validate(value){
+
                 this.errorMessage = '';
-
-                if (!value) {
-                    this.errorMessage = "Please enter password";
+                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (!re.test(String(value).toLowerCase())) {
+                    this.errorMessage = 'Username is invalid (should me email adress)';
                     this.isValid = false;
                     return false;
                 }
-                if (value.length < 6) {
-                    this.errorMessage = "Password should have at least 6 characters";
-                    this.isValid = false;
-                    return false;
-                }
-                // if (!(value.match(/\d/) && value.match(/[A-Z]/))) {
-                //     this.errorMessage = "Password should have 1 digit and 1 uppercase symbol";
-                //     return false;
-                // }
-
                 this.isValid = true;
                 return true;
             }
 
+
         }
 
-        window.customElements.define(PasswordValidator.is, PasswordValidator);
+        window.customElements.define(UsernameValidator.is, UsernameValidator);
     </script>
 
 
